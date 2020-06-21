@@ -24,6 +24,18 @@ const EventsService = {
         return knex('downstream_events')
             .where({ id })
             .delete()
+    },
+    serializeEvents(event) {
+        return {
+            id: event.id,
+            name: event.name,
+            image_url: event.image_url,
+            info_url: event.info_url,
+            description: event.description,
+            platform: event.platform,
+            start_date: new Date(event.start_date),
+            end_date: new Date(event.end_date)
+        }
     }
 }
 

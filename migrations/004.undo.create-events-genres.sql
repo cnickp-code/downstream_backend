@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS downstream_events_genres;
+DROP TABLE IF EXISTS downstream_events_genres CASCADE;

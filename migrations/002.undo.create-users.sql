@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS downstream_users;
+DROP TABLE IF EXISTS downstream_users CASCADE;

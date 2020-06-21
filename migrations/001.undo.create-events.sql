@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS downstream_events;
+DROP TABLE IF EXISTS downstream_events CASCADE;

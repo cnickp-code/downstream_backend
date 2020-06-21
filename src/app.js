@@ -50,9 +50,9 @@ app.use(function validateBearerToken(req, res, next) {
 })
 
 app.use('/api/events', eventsRouter)
-app.use('/api/genres', genresRouter)
-app.use('/api/schedule', scheduleRouter)
-app.use('/api/auth', authRouter)
+// app.use('/api/genres', genresRouter)
+// app.use('/api/schedule', scheduleRouter)
+// app.use('/api/auth', authRouter)
 
 
 app.use(function errorHandler(error, req, res, next) {

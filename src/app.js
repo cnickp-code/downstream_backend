@@ -5,6 +5,10 @@ const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
 const winston = require('winston')
+const eventsRouter = require('./events/events-router')
+const genresRouter = require('./genres/genres-router')
+const scheduleRouter = require('./schedule/schedule-router')
+const authRouter = require('./auth/auth-router')
 
 const app = express()
 
@@ -45,9 +49,11 @@ app.use(function validateBearerToken(req, res, next) {
     next()
 })
 
-app.get('/', (req, res) => {
-    res.send('Hello, world!')
-})
+app.use('/api/events', eventsRouter)
+app.use('/api/genres', genresRouter)
+app.use('/api/schedule', scheduleRouter)
+app.use('/api/auth', authRouter)
+
 
 app.use(function errorHandler(error, req, res, next) {
     let response

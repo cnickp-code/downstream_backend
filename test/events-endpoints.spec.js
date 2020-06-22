@@ -3,6 +3,7 @@ const app = require('../src/app');
 const supertest = require('supertest');
 const helpers = require('./test-helpers');
 const { makeEventsArray } = require('./test-helpers');
+const { expect } = require('chai');
 
 describe('Events Endpoints', () => {
   let db
@@ -65,8 +66,6 @@ describe('Events Endpoints', () => {
             .insert(testEvents)
       })
 
-     
-
       it('responds with 200 and given event', () => {
         const eventId = 1;
         const expectedEvent = testEvents[eventId - 1];
@@ -76,7 +75,61 @@ describe('Events Endpoints', () => {
           .expect(200, expectedEvent)
       })
     })
-  });
 
+    context('Given an XSS attack', () => {
+      const { maliciousEvent, cleanedEvent } = helpers.makeMaliciousEvent();
+
+      beforeEach('insert malicious event', () => {
+        return db
+          .into('downstream_events')
+          .insert(maliciousEvent)
+      })
+
+      it('removes XSS attack content', () => {
+        return supertest(app)
+          .get(`/api/events/${maliciousEvent.id}`)
+          .expect(200)
+          .expect(res => {
+            expect(res.body.name).to.eql(cleanedEvent.name)
+            expect(res.body.description).to.eql(cleanedEvent.description)
+          })
+      })
+    })
+  });
+  describe('POST /api/events', () => {
+    it('Should return 200 and the new event with valid data', () => {
+      const newEvent = {
+        name: 'Test Event 5',
+        image_url: 'https://www.yahoo.com',
+        info_url: 'https://www.yahoo.com',
+        description: 'test description 5',
+        platform: 'twitch',
+        genre: 'dubstep',
+        start_date: '2029-01-22T16:28:32.615Z',
+        end_date: '2029-01-22T16:28:32.615Z'
+      }
+
+      return supertest(app)
+        .post('/api/events')
+        .send(newEvent)
+        .expect(201)
+        .expect(res => {
+          expect(res.body).to.be.an('object')
+          expect(res.body.name).to.eql(newEvent.name)
+          expect(res.body.image_url).to.eql(newEvent.image_url)
+          expect(res.body.info_url).to.eql(newEvent.info_url)
+          expect(res.body.description).to.eql(newEvent.description)
+          expect(res.body.platform).to.eql(newEvent.platform)
+          expect(res.body.genre).to.eql(newEvent.genre)
+          expect(res.body.start_date).to.eql(newEvent.start_date)
+          expect(res.body.end_date).to.eql(newEvent.end_date)
+        })
+        .then(res => {
+          return supertest(app)
+            .get(`/api/events/${res.body.id}`)
+            .expect(res.body)
+        })
+    })
+  })
 
 })

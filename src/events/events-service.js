@@ -1,3 +1,5 @@
+const xss = require('xss')
+
 const EventsService = {
     getAllEvents(knex) {
         return knex
@@ -28,11 +30,12 @@ const EventsService = {
     serializeEvents(event) {
         return {
             id: event.id,
-            name: event.name,
+            name: xss(event.name),
             image_url: event.image_url,
             info_url: event.info_url,
-            description: event.description,
+            description: xss(event.description),
             platform: event.platform,
+            genre: event.genre,
             start_date: new Date(event.start_date),
             end_date: new Date(event.end_date)
         }

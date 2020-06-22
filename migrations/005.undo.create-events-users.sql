@@ -1,1 +1,1 @@
-DROP TABLE downstream_events_users CASCADE;
+DROP TABLE IF EXISTS downstream_events_users CASCADE;

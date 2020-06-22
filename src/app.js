@@ -51,7 +51,7 @@ app.use(cors())
 
 app.use('/api/events', eventsRouter)
 // app.use('/api/genres', genresRouter)
-// app.use('/api/schedule', scheduleRouter)
+app.use('/api/schedule', scheduleRouter)
 // app.use('/api/auth', authRouter)
 
 

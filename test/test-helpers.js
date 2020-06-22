@@ -84,6 +84,51 @@ function makeEventsArray() {
     ]
 }
 
+function makeScheduleArray() {
+    return [
+        {
+            id: 1,
+            user_id: 1,
+            event_id: 3
+        },
+        {
+            id: 2,
+            user_id: 1,
+            event_id: 2
+        },
+        {
+            id: 3,
+            user_id: 1,
+            event_id: 1
+        },
+        {
+            id: 4,
+            user_id: 2,
+            event_id: 1
+        },
+        {
+            id: 5,
+            user_id: 2,
+            event_id: 4
+        },
+        {
+            id: 6,
+            user_id: 3,
+            event_id: 1
+        },
+        {
+            id: 7,
+            user_id: 3,
+            event_id: 3
+        },
+        {
+            id: 8,
+            user_id: 4,
+            event_id: 2
+        },
+    ]
+}
+
 // function makeGenresArray() {
 //     return [
 //         {
@@ -176,6 +221,15 @@ function makeEventsArray() {
 //     })
 // }
 
+function makeUserEvent(users, events, user_id) {
+    const user = users.find(user => user.id === user_id)
+    const event = events.find(event => event.id === event_id)
+
+    return {
+
+    }
+}
+
 function makeMaliciousEvent() {
     const maliciousEvent = {
         id: 911,
@@ -203,6 +257,8 @@ function makeMaliciousEvent() {
 
 module.exports = {
     makeEventsArray,
+    makeUsersArray,
+    makeScheduleArray,
+
     makeMaliciousEvent,
-    makeUsersArray
 }

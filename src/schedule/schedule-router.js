@@ -3,6 +3,9 @@ const ScheduleService = require('./schedule-service')
 const EventsService = require('../events/events-service')
 const scheduleRouter = express.Router()
 
+// req.user.id will be set in auth step. 
+// Do not need .all after auth step is taken as well as :user_id
+
 scheduleRouter
     .route('/:user_id')
     .all((req, res, next) => {
@@ -30,13 +33,8 @@ scheduleRouter
         ScheduleService.getScheduleByUserId(req.app.get('db'), res.user.id)
             .then(schedule => {
                 const newSchedule = schedule.map(sched => {
-                    EventsService.getById(req.app.get('db'), sched.event_id)
-                        .then(event => {
-                            currentEvent = EventsService.serializeEvents(event)
-                            console.log(currentEvent)
-                            return currentEvent
-                        })
                     
+                    return EventsService.serializeEvents(sched)  
                 })
 
                 res

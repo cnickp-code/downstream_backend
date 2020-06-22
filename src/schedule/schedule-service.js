@@ -4,8 +4,10 @@ const ScheduleService = {
     getScheduleByUserId(knex, id) {
         return knex
             .from('downstream_schedule')
+            .join('downstream_events', 'downstream_events.id', 'event_id')
             .select('*')
             .where('user_id', id)
+
     },
     getUserById(knex, id) {
         return knex
@@ -27,7 +29,7 @@ const ScheduleService = {
         // console.log(currentEvent)
         // return currentEvent;
     },
-    
+
 
 }
 

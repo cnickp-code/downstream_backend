@@ -221,13 +221,48 @@ function makeScheduleArray() {
 //     })
 // }
 
-function makeUserEvent(users, events, user_id) {
-    const user = users.find(user => user.id === user_id)
-    const event = events.find(event => event.id === event_id)
+function seedUsers(db, users) {
+    // const preppedUsers = users.map(user => ({
+    //     ...user,
+    //     password: bcrypt.hashSync(user.password, 1)
+    // }))
+    return db
+        .into('downstream_users')
+        .insert(users)
+        .then(() => db.raw(`SELECT setval('downstream_users_id_seq', ?)`, [users[users.length - 1].id] ))
+}
 
-    return {
+function cleanTables(db) {
+    return db.transaction(trx => 
+        trx.raw(
+            `
+            TRUNCATE downstream_schedule CASCADE;
+            TRUNCATE downstream_users CASCADE;
+            TRUNCATE downstream_events CASCADE;
+            `
+        )
+        .then(() => 
+            Promise.all([
+                trx.raw(`ALTER SEQUENCE downstream_users_id_seq minvalue 0 START WITH 1`),
+                trx.raw(`ALTER SEQUENCE downstream_events_id_seq minvalue 0 START WITH 1`),
+                trx.raw(`ALTER SEQUENCE downstream_schedule_id_seq minvalue 0 START WITH 1`),
+                trx.raw(`SELECT setval('downstream_users_id_seq', 0)`),
+                trx.raw(`SELECT setval('downstream_events_id_seq', 0)`),
+                trx.raw(`SELECT setval('downstream_schedule_id_seq', 0)`),
+            ])
+        )
+    )
+}
 
-    }
+function seedSchedule(db, users, events, schedule) {
+    
+    return db.transaction(async trx => {
+        await seedUsers(trx, users)
+        await trx.into('downstream_events').insert(events)
+        await trx.raw(`SELECT setval('downstream_events_id_seq', ?)`, [events[events.length - 1].id])
+        await trx.into('downstream_schedule').insert(schedule)
+        await trx.raw(`SELECT setval('downstream_events_id_seq', ?)`, [schedule[schedule.length - 1].id])
+    })
 }
 
 function makeMaliciousEvent() {
@@ -261,4 +296,7 @@ module.exports = {
     makeScheduleArray,
 
     makeMaliciousEvent,
+    cleanTables,
+    seedUsers,
+    seedSchedule
 }

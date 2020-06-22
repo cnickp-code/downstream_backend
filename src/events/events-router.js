@@ -54,7 +54,9 @@ eventsRouter
         .catch(next)
     })
     .get((req, res, next) => {
-        res.json(EventsService.serializeEvents(res.event))
+        res
+            .status(200)
+            .json(EventsService.serializeEvents(res.event))
             
             
             

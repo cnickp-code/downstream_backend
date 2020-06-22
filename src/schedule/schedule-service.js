@@ -1,11 +1,11 @@
 const EventsService = require('../events/events-service')
 
 const ScheduleService = {
-    getScheduleById(knex, id) {
+    getScheduleByUserId(knex, id) {
         return knex
             .from('downstream_schedule')
             .select('*')
-            .where('id', id)
+            .where('user_id', id)
     },
     getUserById(knex, id) {
         return knex
@@ -20,9 +20,14 @@ const ScheduleService = {
         EventsService.getById(knex, id)
             .then(event => {
                 currentEvent = EventsService.serializeEvents(event)
+                console.log(currentEvent)
+                return currentEvent
             })
-        return currentEvent;
-    }
+        // console.log('SMILE')
+        // console.log(currentEvent)
+        // return currentEvent;
+    },
+    
 
 }
 

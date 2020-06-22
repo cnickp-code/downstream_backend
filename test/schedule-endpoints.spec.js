@@ -16,11 +16,10 @@ describe('Schedule Endpoints', () => {
         })
         app.set('db', db)
     })
-
-    const cleanDb = () => db.raw('TRUNCATE downstream_events RESTART IDENTITY CASCADE;');
-    before('clean db', cleanDb);
-    afterEach('clean db', cleanDb);
-    after('end connection', () => db.destroy());
+        
+    before('clean db', () => helpers.cleanTables(db))
+    afterEach('clean db', () => helpers.cleanTables(db))
+    after('end connection', () => db.destroy())
 
     describe.only('GET /api/schedule/:user_id', () => {
         context('Given invalid user id', () => {
@@ -34,31 +33,33 @@ describe('Schedule Endpoints', () => {
 
         context('Given valid user', () => {
             const testSchedule = helpers.makeScheduleArray();
-            const expectedEvent = testEvents[1]
+
+            console.log()
 
             beforeEach('insert test schedule', () => {
-                return db
-                    .into('downstream_events')
-                    .insert(testEvents)
-                    .then(() => {
-                        return db
-                            .into('downstream_users')
-                            .insert(testUsers)
-                            .then(() => {
-                                return db
-                                    .into('downstream_schedule')
-                                    .insert(testSchedule)
-                            })
-                    })
+                helpers.seedSchedule(
+                    db,
+                    testUsers,
+                    testEvents,
+                    testSchedule
+                )
 
             })
 
             it('responds with 200 and corresponding events', () => {
                 const userId = 4;
+                let tempSchedule = testSchedule.filter(sched => sched.user_id === userId)
+                let expectedResult = []
+
+                tempSchedule.forEach(sched => {
+                    let ev = testEvents.find(event => event.id === sched.event_id)
+
+                    expectedResult.push(ev)
+                })
                 
                 return supertest(app)
                     .get(`/api/schedule/${userId}`)
-                    .expect(200, expectedEvent)
+                    .expect(200, expectedResult)
 
             })
         })

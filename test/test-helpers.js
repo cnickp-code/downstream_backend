@@ -1,4 +1,5 @@
-// const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
 
 function makeUsersArray() {
     return [
@@ -6,31 +7,36 @@ function makeUsersArray() {
             id: 1,
             user_name: 'Crayzix',
             password: 'password1',
-            email: 'nick@nick.com'
+            email: 'nick@nick.com',
+            date_created: '2029-01-22T16:28:32.615Z',
         },
         {
             id: 2,
             user_name: 'Zixith',
             password: 'password2',
-            email: 'carlo@carlo.com'
+            email: 'carlo@carlo.com',
+            date_created: '2029-01-22T16:28:32.615Z',
         },
         {
             id: 3,
             user_name: 'Zero',
             password: 'password3',
-            email: 'mark@mark.com'
+            email: 'mark@mark.com',
+            date_created: '2029-01-22T16:28:32.615Z',
         },
         {
             id: 4,
             user_name: 'Bigbarrels',
             password: 'password4',
-            email: 'mario@mario.com'
+            email: 'mario@mario.com',
+            date_created: '2029-01-22T16:28:32.615Z',
         },
         {
             id: 5,
             user_name: 'Liquid',
             password: 'password5',
-            email: 'hayden@hayden.com'
+            email: 'hayden@hayden.com',
+            date_created: '2029-01-22T16:28:32.615Z',
         },
     ]
 }
@@ -222,13 +228,13 @@ function makeScheduleArray() {
 // }
 
 function seedUsers(db, users) {
-    // const preppedUsers = users.map(user => ({
-    //     ...user,
-    //     password: bcrypt.hashSync(user.password, 1)
-    // }))
+    const preppedUsers = users.map(user => ({
+        ...user,
+        password: bcrypt.hashSync(user.password, 1),
+    }))
     return db
         .into('downstream_users')
-        .insert(users)
+        .insert(preppedUsers)
         .then(() => db.raw(`SELECT setval('downstream_users_id_seq', ?)`, [users[users.length - 1].id] ))
 }
 
@@ -290,6 +296,14 @@ function makeMaliciousEvent() {
 
 }
 
+function makeAuthHeader(user, secret = process.env.JWT_SECRET) {
+    const token = jwt.sign({ user_id: user.id }, secret, {
+      subject: user.user_name,
+      algorithm: 'HS256'
+    })
+    return `Bearer ${token}`
+}
+
 module.exports = {
     makeEventsArray,
     makeUsersArray,
@@ -298,5 +312,6 @@ module.exports = {
     makeMaliciousEvent,
     cleanTables,
     seedUsers,
-    seedSchedule
+    seedSchedule,
+    makeAuthHeader
 }

@@ -21,20 +21,9 @@ describe('Schedule Endpoints', () => {
     afterEach('clean db', () => helpers.cleanTables(db))
     after('end connection', () => db.destroy())
 
-    describe.only('GET /api/schedule/', () => {
-        // context('Given invalid user id', () => {
-        //     it('responds with 404', () => {
-        //         const userId = 123456
-        //         return supertest(app)
-        //             .get(`/api/schedule/${userId}`)
-        //             .expect(404, { error: { message: `User doesn't exist` }})
-        //     })
-        // })
-
+    describe('GET /api/schedule/', () => {
         context('Given valid user', () => {
             const testSchedule = helpers.makeScheduleArray();
-
-            console.log()
 
             beforeEach('insert test schedule', () => {
                 helpers.seedSchedule(
@@ -43,7 +32,6 @@ describe('Schedule Endpoints', () => {
                     testEvents,
                     testSchedule
                 )
-
             })
 
             it('responds with 200 and corresponding events', () => {
@@ -58,7 +46,8 @@ describe('Schedule Endpoints', () => {
                 })
                 
                 return supertest(app)
-                    .get(`/api/schedule/${userId}`)
+                    .get(`/api/schedule/`)
+                    .set('Authorization', helpers.makeAuthHeader(testUsers[userId - 1]))
                     .expect(200, expectedResult)
 
             })

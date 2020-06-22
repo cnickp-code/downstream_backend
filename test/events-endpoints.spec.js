@@ -16,10 +16,9 @@ describe('Events Endpoints', () => {
     app.set('db', db)
   })
 
-  const cleanDb = () => db.raw('TRUNCATE downstream_events RESTART IDENTITY CASCADE;');
-  before('clean db', cleanDb);
-  afterEach('clean db', cleanDb);
-  after('end connection', () => db.destroy());
+  before('clean db', () => helpers.cleanTables(db))
+  afterEach('clean db', () => helpers.cleanTables(db))
+  after('end connection', () => db.destroy())
 
   describe('GET /api/events', () => {
     it('Should return 200 and empty array', () => {
@@ -45,14 +44,43 @@ describe('Events Endpoints', () => {
       })
     })
 
+    context('Given an XSS attack', () => {
+      const { maliciousEvent, cleanedEvent } = helpers.makeMaliciousEvent();
+
+      beforeEach('insert malicious event and users', () => {
+        return db
+          .into('downstream_events')
+          .insert(maliciousEvent)
+          .then()
+      })
+
+      it('removes XSS attack content', () => {
+        return supertest(app)
+          .get(`/api/events`)
+          .expect(200)
+          .expect(res => {
+            expect(res.body[0].name).to.eql(cleanedEvent.name)
+            expect(res.body[0].description).to.eql(cleanedEvent.description)
+          })
+      })
+    })
+
   });
 
   describe('GET /api/events/:event_id', () => {
+    const testUsers = helpers.makeUsersArray();
+    const validUser = testUsers[0]
+
+    beforeEach(() => 
+      helpers.seedUsers(db, testUsers)
+    )
+
     context('Given no events', () => {
       it('responds with 404', () => {
         const eventId = 123456
         return supertest(app)
           .get(`/api/events/${eventId}`)
+          .set('Authorization', helpers.makeAuthHeader(validUser))
           .expect(404, { error: { message: `Event doesn't exist`}})
       })
     })
@@ -72,31 +100,21 @@ describe('Events Endpoints', () => {
 
         return supertest(app)
           .get(`/api/events/${eventId}`)
+          .set('Authorization', helpers.makeAuthHeader(validUser))
           .expect(200, expectedEvent)
       })
     })
 
-    context('Given an XSS attack', () => {
-      const { maliciousEvent, cleanedEvent } = helpers.makeMaliciousEvent();
 
-      beforeEach('insert malicious event', () => {
-        return db
-          .into('downstream_events')
-          .insert(maliciousEvent)
-      })
-
-      it('removes XSS attack content', () => {
-        return supertest(app)
-          .get(`/api/events/${maliciousEvent.id}`)
-          .expect(200)
-          .expect(res => {
-            expect(res.body.name).to.eql(cleanedEvent.name)
-            expect(res.body.description).to.eql(cleanedEvent.description)
-          })
-      })
-    })
   });
   describe('POST /api/events', () => {
+    const testUsers = helpers.makeUsersArray();
+    const validUser = testUsers[0]
+
+    beforeEach(() => 
+      helpers.seedUsers(db, testUsers)
+    )
+
     it('Should return 200 and the new event with valid data', () => {
       const newEvent = {
         name: 'Test Event 5',
@@ -111,6 +129,7 @@ describe('Events Endpoints', () => {
 
       return supertest(app)
         .post('/api/events')
+        .set('Authorization', helpers.makeAuthHeader(validUser))
         .send(newEvent)
         .expect(201)
         .expect(res => {
@@ -127,6 +146,7 @@ describe('Events Endpoints', () => {
         .then(res => {
           return supertest(app)
             .get(`/api/events/${res.body.id}`)
+            .set('Authorization', helpers.makeAuthHeader(validUser))
             .expect(res.body)
         })
     })

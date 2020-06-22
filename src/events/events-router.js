@@ -1,6 +1,7 @@
 const express = require('express')
 const EventsService = require('./events-service')
 const eventsRouter = express.Router();
+const { requireAuth } = require('../middleware/jwt-auth')
 
 
 const bodyParser = express.json();
@@ -14,7 +15,7 @@ eventsRouter
             })
             .catch(next);
     })
-    .post(bodyParser, (req, res, next) => {
+    .post(requireAuth, bodyParser, (req, res, next) => {
         const { name, image_url, info_url, description, platform, genre, start_date, end_date } = req.body
         const newEvent = { name, image_url, info_url, description, platform, genre, start_date, end_date }
 
@@ -37,6 +38,7 @@ eventsRouter
 
 eventsRouter
     .route('/:event_id')
+    .all(requireAuth)
     .all((req, res, next) => {
         EventsService.getById(
             req.app.get('db'),
@@ -57,20 +59,6 @@ eventsRouter
         res
             .status(200)
             .json(EventsService.serializeEvents(res.event))
-            
-            
-            
-        //     {
-        //     id: res.event.id,
-        //     name: xss(res.event.name),
-        //     image_url: xss(res.event.image_url),
-        //     info_url: xss(res.event.info_url),
-        //     description: xss(res.event.description),
-        //     platform: res.event.platform,
-        //     genre: res.event.genre,
-        //     start_date: new Date(res.event.start_date),
-        //     end_date: new Date(res.event.end_date)
-        // })
     })
 
 module.exports = eventsRouter;

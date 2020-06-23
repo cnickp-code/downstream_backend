@@ -26,7 +26,7 @@ describe('Auth Endpoints', function () {
 
     describe('Protected endpoints', () => {
         beforeEach('insert data into tables', () => {
-            helpers.seedSchedule(
+            return helpers.seedSchedule(
                 db,
                 testUsers,
                 testEvents,

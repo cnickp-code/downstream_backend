@@ -32,6 +32,22 @@ scheduleRouter
 
 scheduleRouter
     .route('/:schedule_id')
+    .all((req, res, next) => {
+        ScheduleService.getById(
+            req.app.get('db'),
+            req.params.schedule_id
+        )
+        .then(event => {
+            if(!event) {
+                return res.status(404).json({
+                    error: { message: `Schedule item doesn't exist`}
+                })
+            }
+            res.event = event
+            next()
+        })
+        .catch(next)
+    })
     .delete(requireAuth, jsonBodyParser, (req, res, next) => {
         const knexInstance = req.app.get('db')
 

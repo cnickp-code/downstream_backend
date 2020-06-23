@@ -22,6 +22,13 @@ const ScheduleService = {
             .where('id', id)
             .first()
     },
+    getById(knex, id) {
+        return knex
+            .from('downstream_schedule')
+            .select('*')
+            .where('id', id)
+            .first()
+    },
     deleteScheduleEvent(knex, id) {
         return knex('downstream_schedule')
             .where({ id })

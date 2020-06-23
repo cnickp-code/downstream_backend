@@ -46,6 +46,7 @@ describe('Schedule Endpoints', () => {
 
                     expectedResult.push({
                         ...ev,
+                        id: sched.id,
                         event_id: ev.id
                     })
                 })
@@ -60,7 +61,18 @@ describe('Schedule Endpoints', () => {
     })
 
     describe('DELETE /api/schedule/:schedule_id', () => {
+
+
         context('Given no schedule', () => {
+            const testSchedule = helpers.makeScheduleArray();
+            beforeEach('insert test schedule', () => {
+                return helpers.seedSchedule(
+                    db,
+                    testUsers,
+                    testEvents,
+                    testSchedule
+                )
+            })
             it('Responds with 404', () => {
                 const scheduleId = 123456
                 const validUser = testUsers[0];
@@ -84,7 +96,7 @@ describe('Schedule Endpoints', () => {
                 )
             })
 
-            it.only('Responds with 204 and removes scheduled event', () => {
+            it('Responds with 204 and removes scheduled event', () => {
                 const idToDelete = 2;
                 const userId = 1;
                 const expectedSchedule = testSchedule.filter(sched => sched.id !== idToDelete).filter(sched => sched.user_id === userId)
@@ -106,8 +118,6 @@ describe('Schedule Endpoints', () => {
 
                     return newObject;
                 })
-
-                console.log(expectedEventObject)
 
                 return supertest(app)
                     .delete(`/api/schedule/${idToDelete}`)

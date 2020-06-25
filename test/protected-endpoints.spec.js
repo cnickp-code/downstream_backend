@@ -43,6 +43,10 @@ describe('Auth Endpoints', function () {
                 name: 'GET /api/schedule',
                 path: '/api/schedule'
             },
+            {
+                name: 'GET /api/schedule/:schedule_id',
+                path: '/api/schedule'
+            }
         ]
 
         protectedEndpoints.forEach(endpoint => {

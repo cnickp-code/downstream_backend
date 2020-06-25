@@ -8,10 +8,10 @@ TRUNCATE
 
 INSERT INTO downstream_events (name, image_url, info_url, description, start_date, end_date, genre, platform)
 VALUES
-    ('Lost Lands', 'http://placehold.it/500x500', 'https://www.google.com', 'test description 1', '2029-01-22T16:28:32.615Z', '2029-01-22T16:28:32.615Z', 'dubstep', 'twitch'),
-    ('EDC', 'http://placehold.it/500x500', 'https://www.google.com', 'test description 2', '2029-01-22T16:28:32.615Z', '2029-01-22T16:28:32.615Z', 'house', 'plamp'),
-    ('Shambhala', 'http://placehold.it/500x500', 'https://www.google.com', 'test description 3', '2029-01-22T16:28:32.615Z', '2029-01-22T16:28:32.615Z', 'multi', 'facebook'),
-    ('Lightning in a Bottle', 'http://placehold.it/500x500', 'https://www.google.com', 'test description 4', '2029-01-22T16:28:32.615Z', '2029-01-22T16:28:32.615Z', 'other', 'youtube');
+    ('Lost Lands', 'https://www.lostlandsfestival.com/wp-content/uploads/2020/05/preview-lightbox-TeaserGraphic_1920x1080_2-1200x675.jpg', 'https://www.google.com', 'test description 1', '2029-01-22T16:28:32.615Z', '2029-01-22T16:28:32.615Z', 'dubstep', 'twitch'),
+    ('EDC', 'https://www.8newsnow.com/wp-content/uploads/sites/59/2020/05/EDC_livestream.png?w=871&h=513&crop=1&resize=1280,720', 'https://www.google.com', 'test description 2', '2029-01-22T16:28:32.615Z', '2029-01-22T16:28:32.615Z', 'house', 'plamp'),
+    ('Shambhala', 'https://shambhalamusicfestival.com/wp-content/uploads/2019/09/SMF_og_image_2020.jpg', 'https://www.google.com', 'test description 3', '2029-01-22T16:28:32.615Z', '2029-01-22T16:28:32.615Z', 'multi', 'facebook'),
+    ('Lightning in a Bottle', 'https://hedonistshedonist.com/wp-content/uploads/2018/05/LiB-2018-selects-66.jpg', 'https://www.google.com', 'test description 4', '2029-01-22T16:28:32.615Z', '2029-01-22T16:28:32.615Z', 'other', 'youtube');
 
 INSERT INTO downstream_users (user_name, password, email, date_created)
 VALUES

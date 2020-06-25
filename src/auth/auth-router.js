@@ -27,8 +27,6 @@ authRouter
                     })
                 }
                 
-                console.log(loginUser.password)
-                console.log(dbUser.password)
                 return AuthService.comparePasswords(loginUser.password, dbUser.password)
                 .then(pwBool => {
                     if(!pwBool) {

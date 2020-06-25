@@ -37,8 +37,8 @@ const EventsService = {
             description: xss(event.description),
             platform: event.platform,
             genre: event.genre,
-            start_date: event.start_date,
-            end_date: event.end_date
+            start_date: new Date(event.start_date),
+            end_date: new Date(event.end_date)
         }
     }
 }

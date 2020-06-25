@@ -52,8 +52,8 @@ function makeEventsArray() {
             description: 'test description 1',
             platform: 'twitch',
             genre: 'house',
-            start_date: '9/25',
-            end_date: '9/28'
+            start_date: '2029-01-22T16:28:32.615Z',
+            end_date: '2029-01-22T16:28:32.615Z',
         },
         {
             id: 2,
@@ -64,8 +64,8 @@ function makeEventsArray() {
             description: 'test description 2',
             platform: 'plamp',
             genre: 'other',
-            start_date: '5/24',
-            end_date: '5/27'
+            start_date: '2029-01-22T16:28:32.615Z',
+            end_date: '2029-01-22T16:28:32.615Z',
         },
         {
             id: 3,
@@ -76,8 +76,8 @@ function makeEventsArray() {
             description: 'test description 3',
             platform: 'youtube',
             genre: 'dubstep',
-            start_date: '8/1',
-            end_date: '8/4'
+            start_date: '2029-01-22T16:28:32.615Z',
+            end_date: '2029-01-22T16:28:32.615Z',
         },
         {
             id: 4,
@@ -88,8 +88,8 @@ function makeEventsArray() {
             description: 'test description 4',
             platform: 'facebook',
             genre: 'multi',
-            start_date: '3/5',
-            end_date: '3/8'
+            start_date: '2029-01-22T16:28:32.615Z',
+            end_date: '2029-01-22T16:28:32.615Z',
         },
     ]
 }

@@ -39,8 +39,6 @@ describe('Auth Endpoints', function () {
             it(`responds with 400 required error when '${field}' is missing`, () => {
                 delete loginAttemptBody[field]
 
-                console.log(loginAttemptBody)
-
                 return supertest(app)
                     .post('/api/auth/login')
                     .send(loginAttemptBody)

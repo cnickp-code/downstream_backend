@@ -19,7 +19,6 @@ scheduleRouter
         ScheduleService.getScheduleByUserId(knexInstance, userId)
             .then(schedule => {
                 const newSchedule = schedule.map(sched => {
-                    console.log(sched)
                     return ScheduleService.serializeSchedule(sched)  
                 })
 

@@ -76,7 +76,6 @@ describe('Schedule Endpoints', () => {
             it('Responds with 404', () => {
                 const scheduleId = 123456
                 const validUser = testUsers[0];
-                console.log(validUser)
                 return supertest(app)
                     .delete(`/api/schedule/${scheduleId}`)
                     .set('Authorization', helpers.makeAuthHeader(testUsers[0]))

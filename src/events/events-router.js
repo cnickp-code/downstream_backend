@@ -60,5 +60,14 @@ eventsRouter
             .status(200)
             .json(EventsService.serializeEvents(res.event))
     })
+    .delete((req, res, next) => {
+        const knexInstance = req.app.get('db')
+
+        EventsService.deleteEvent(knexInstance, req.params.event_id)
+            .then(() => {
+                res.status(204).end()
+            })
+            .catch(next)
+    })
 
 module.exports = eventsRouter;

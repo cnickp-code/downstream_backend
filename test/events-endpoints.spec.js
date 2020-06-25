@@ -107,6 +107,66 @@ describe('Events Endpoints', () => {
 
 
   });
+
+  describe('DELETE /api/events/:event_id', () => {
+    context('Given no event', () => {
+      const testUsers = helpers.makeUsersArray();
+      const testEvents = helpers.makeEventsArray();
+      const testSchedule = helpers.makeScheduleArray();
+
+      beforeEach('Insert test events', () => {
+          return helpers.seedSchedule(
+            db,
+            testUsers,
+            testEvents,
+            testSchedule
+        )
+      })
+
+      it('Responds with 404', () => {
+        const eventId = 123456
+        const validUser = testUsers[0]
+
+        return supertest(app)
+          .delete(`/api/events/${eventId}`)
+          .set('Authorization', helpers.makeAuthHeader(validUser))
+          .expect(404)
+      })
+    })
+
+    context('Given event is in database', () => {
+      const testUsers = helpers.makeUsersArray();
+      const testEvents = helpers.makeEventsArray();
+      const testSchedule = helpers.makeScheduleArray();
+
+      beforeEach('Insert test events', () => {
+          return helpers.seedSchedule(
+            db,
+            testUsers,
+            testEvents,
+            testSchedule
+        )
+      })
+
+      it('Responds with 204 and removes event', () => {
+        const idToDelete = 2;
+        const validUser = testUsers[0]
+        const expectedEvents = testEvents.filter(event => event.id !== idToDelete)
+
+        return supertest(app)
+          .delete(`/api/events/${idToDelete}`)
+          .set('Authorization', helpers.makeAuthHeader(validUser))
+          .expect(204)
+          .then(res => {
+            return supertest(app)
+              .get('/api/events')
+              .expect(expectedEvents)
+          })
+      })
+    })
+  })
+
+
   describe('POST /api/events', () => {
     const testUsers = helpers.makeUsersArray();
     const validUser = testUsers[0]
@@ -124,8 +184,8 @@ describe('Events Endpoints', () => {
         description: 'test description 5',
         platform: 'twitch',
         genre: 'dubstep',
-        start_date: '12/24',
-        end_date: '12/27'
+        start_date: '2029-01-22T16:28:32.615Z',
+        end_date: '2029-01-22T16:28:32.615Z'
       }
 
       return supertest(app)

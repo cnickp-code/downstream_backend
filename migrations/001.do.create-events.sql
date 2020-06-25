@@ -3,6 +3,7 @@ CREATE TABLE downstream_events (
     name TEXT NOT NULL,
     image_url TEXT NOT NULL,
     info_url TEXT NOT NULL,
+    stream_url TEXT NOT NULL,
     description TEXT NOT NULL,
     start_date TIMESTAMPTZ DEFAULT now() NOT NULL,
     end_date TIMESTAMPTZ DEFAULT now() NOT NULL,

@@ -120,6 +120,7 @@ describe('Events Endpoints', () => {
         name: 'Test Event 5',
         image_url: 'https://www.yahoo.com',
         info_url: 'https://www.yahoo.com',
+        stream_url: 'https://www.yahoo.com',
         description: 'test description 5',
         platform: 'twitch',
         genre: 'dubstep',
@@ -137,6 +138,7 @@ describe('Events Endpoints', () => {
           expect(res.body.name).to.eql(newEvent.name)
           expect(res.body.image_url).to.eql(newEvent.image_url)
           expect(res.body.info_url).to.eql(newEvent.info_url)
+          expect(res.body.stream_url).to.eql(newEvent.stream_url)
           expect(res.body.description).to.eql(newEvent.description)
           expect(res.body.platform).to.eql(newEvent.platform)
           expect(res.body.genre).to.eql(newEvent.genre)

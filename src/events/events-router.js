@@ -16,8 +16,8 @@ eventsRouter
             .catch(next);
     })
     .post(requireAuth, bodyParser, (req, res, next) => {
-        const { name, image_url, info_url, description, platform, genre, start_date, end_date } = req.body
-        const newEvent = { name, image_url, info_url, description, platform, genre, start_date, end_date }
+        const { name, image_url, info_url, stream_url, description, platform, genre, start_date, end_date } = req.body
+        const newEvent = { name, image_url, info_url, stream_url, description, platform, genre, start_date, end_date }
 
         for(const [key, value] of Object.entries(newEvent)) {
             if(value == null) {

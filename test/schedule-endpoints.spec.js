@@ -109,6 +109,7 @@ describe('Schedule Endpoints', () => {
                         name: newItem.name,
                         image_url: newItem.image_url,
                         info_url: newItem.info_url,
+                        stream_url: newItem.stream_url,
                         description: newItem.description,
                         platform: newItem.platform,
                         genre: newItem.genre,

@@ -33,6 +33,7 @@ const EventsService = {
             name: xss(event.name),
             image_url: event.image_url,
             info_url: event.info_url,
+            stream_url: event.stream_url,
             description: xss(event.description),
             platform: event.platform,
             genre: event.genre,

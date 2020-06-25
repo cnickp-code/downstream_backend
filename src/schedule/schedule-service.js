@@ -40,6 +40,7 @@ const ScheduleService = {
             event_id: schedule.event_id,
             name: xss(schedule.name),
             image_url: schedule.image_url,
+            stream_url: schedule.stream_url,
             info_url: schedule.info_url,
             description: xss(schedule.description),
             platform: schedule.platform,

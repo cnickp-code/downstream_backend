@@ -45,8 +45,8 @@ const ScheduleService = {
             description: xss(schedule.description),
             platform: schedule.platform,
             genre: schedule.genre,
-            start_date: new Date(schedule.start_date),
-            end_date: new Date(schedule.end_date)
+            start_date: schedule.start_date,
+            end_date: schedule.end_date
         }
     }
 

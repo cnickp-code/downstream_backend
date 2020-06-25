@@ -5,8 +5,8 @@ CREATE TABLE downstream_events (
     info_url TEXT NOT NULL,
     stream_url TEXT NOT NULL,
     description TEXT NOT NULL,
-    start_date TIMESTAMPTZ DEFAULT now() NOT NULL,
-    end_date TIMESTAMPTZ DEFAULT now() NOT NULL,
+    start_date TEXT NOT NULL,
+    end_date TEXT DEFAULT now() NOT NULL,
     genre TEXT NOT NULL,
     platform TEXT NOT NULL
 );

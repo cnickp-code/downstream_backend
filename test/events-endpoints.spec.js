@@ -124,8 +124,8 @@ describe('Events Endpoints', () => {
         description: 'test description 5',
         platform: 'twitch',
         genre: 'dubstep',
-        start_date: '2029-01-22T16:28:32.615Z',
-        end_date: '2029-01-22T16:28:32.615Z'
+        start_date: '12/24',
+        end_date: '12/27'
       }
 
       return supertest(app)

@@ -2,6 +2,7 @@ const knex = require('knex');
 const app = require('../src/app');
 const supertest = require('supertest');
 const helpers = require('./test-helpers');
+const { expect } = require('chai');
 
 describe('Schedule Endpoints', () => {
     let db
@@ -41,8 +42,6 @@ describe('Schedule Endpoints', () => {
 
                 tempSchedule.forEach(sched => {
                     let ev = testEvents.find(event => event.id === sched.event_id)
-                    // ev['event_id'] = ev['id']
-                    // ev['id'] = sched.id
 
                     expectedResult.push({
                         ...ev,
@@ -56,6 +55,79 @@ describe('Schedule Endpoints', () => {
                     .set('Authorization', helpers.makeAuthHeader(testUsers[userId - 1]))
                     .expect(200, expectedResult)
 
+            })
+        })
+    })
+
+    describe('GET /api/schedule/:schedule_id', () => {
+        context('Should return 200 and given schedule', () => {
+            const userId = 4;
+            const testSchedule = helpers.makeScheduleArray();
+            const validUser = testUsers[userId - 1]
+    
+            beforeEach('Insert test schedule', () => {
+                return helpers.seedSchedule(
+                    db,
+                    testUsers,
+                    testEvents,
+                    testSchedule
+                )
+            })
+
+            it('Responds with 200 and given schedule item', () => {
+                const scheduleId = 1;
+                const expectedSchedule = testSchedule[scheduleId - 1];
+
+                return supertest(app)
+                    .get(`/api/schedule/${scheduleId}`)
+                    .set('Authorization', helpers.makeAuthHeader(validUser))
+                    .expect(200, expectedSchedule)
+            })
+        })
+    })
+
+    describe('POST /api/schedule', () => {
+        context('Should return 200 and the posted schedule item', () => {
+            const testUsers = helpers.makeUsersArray();
+            const testEvents = helpers.makeEventsArray();
+            const testSchedule = helpers.makeScheduleArray();
+            const validUser = testUsers[0]
+
+            beforeEach('Insert test events', () => {
+                return helpers.seedSchedule(
+                    db,
+                    testUsers,
+                    testEvents,
+                    testSchedule
+                )
+            })
+
+            it('Responds with 201 and added schedule item', () => {
+                const newScheduleItem = {
+                    id: 9,
+                    event_id: 4,
+                    user_id: 1
+                }
+
+
+
+                return supertest(app)
+                    .post('/api/schedule')
+                    .set('Authorization', helpers.makeAuthHeader(validUser))
+                    .send(newScheduleItem)
+                    .expect(201)
+                    .expect(res => {
+                        expect(res.body).to.be.an('object')
+                        expect(res.body.event_id).to.eql(newScheduleItem.event_id)
+                        expect(res.body.user_id).to.eql(newScheduleItem.user_id)
+                    })
+                    .then(res => {
+                        return supertest(app)
+                            .get(`/api/schedule/${newScheduleItem.id}`)
+                            .set('Authorization', helpers.makeAuthHeader(validUser))
+                            .expect(res.body)
+
+                    })
             })
         })
     })

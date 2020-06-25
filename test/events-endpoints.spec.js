@@ -175,7 +175,7 @@ describe('Events Endpoints', () => {
       helpers.seedUsers(db, testUsers)
     )
 
-    it('Should return 200 and the new event with valid data', () => {
+    it('Should return 201 and the new event with valid data', () => {
       const newEvent = {
         name: 'Test Event 5',
         image_url: 'https://www.yahoo.com',

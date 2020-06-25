@@ -29,6 +29,15 @@ const ScheduleService = {
             .where('id', id)
             .first()
     },
+    insertSchedule(knex, newSchedule) {
+        return knex
+            .insert(newSchedule)
+            .into('downstream_schedule')
+            .returning('*')
+            .then(rows => {
+                return rows[0]
+            })
+    },
     deleteScheduleEvent(knex, id) {
         return knex('downstream_schedule')
             .where({ id })
@@ -47,6 +56,13 @@ const ScheduleService = {
             genre: schedule.genre,
             start_date: schedule.start_date,
             end_date: schedule.end_date
+        }
+    },
+    serializeScheduleItem(item) {
+        return {
+            id: item.id,
+            event_id: item.event_id,
+            user_id: item.user_id
         }
     }
 

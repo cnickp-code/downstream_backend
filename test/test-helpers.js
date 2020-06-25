@@ -232,10 +232,12 @@ function makeScheduleArray() {
 // }
 
 function seedUsers(db, users) {
-    const preppedUsers = users.map(user => ({
-        ...user,
-        password: bcrypt.hashSync(user.password, 1),
-    }))
+        const preppedUsers = users.map(user => {
+            let { id, ...newUser } = user;
+            newUser.password = bcrypt.hashSync(user.password, 1);
+            
+            return newUser
+    })
     return db
         .into('downstream_users')
         .insert(preppedUsers)
@@ -268,9 +270,17 @@ function seedSchedule(db, users, events, schedule) {
     
     return db.transaction(async trx => {
         await seedUsers(trx, users)
-        await trx.into('downstream_events').insert(events)
+        await trx.into('downstream_events').insert(events.map(event => {
+            let { id, ...newEvent } = event
+
+            return newEvent;
+        }))
         await trx.raw(`SELECT setval('downstream_events_id_seq', ?)`, [events[events.length - 1].id])
-        await trx.into('downstream_schedule').insert(schedule)
+        await trx.into('downstream_schedule').insert(schedule.map(item => {
+            let { id, ...newSchedule } = item
+
+            return newSchedule;
+        }))
         await trx.raw(`SELECT setval('downstream_events_id_seq', ?)`, [schedule[schedule.length - 1].id])
     })
 }

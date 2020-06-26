@@ -9,6 +9,7 @@ const eventsRouter = require('./events/events-router')
 const genresRouter = require('./genres/genres-router')
 const scheduleRouter = require('./schedule/schedule-router')
 const authRouter = require('./auth/auth-router')
+const usersRouter = require('./users/users-router')
 
 const app = express()
 
@@ -37,6 +38,7 @@ app.use(cors())
 app.use('/api/events', eventsRouter)
 app.use('/api/schedule', scheduleRouter)
 app.use('/api/auth', authRouter)
+app.use('/api/users', usersRouter)
 
 
 app.use(function errorHandler(error, req, res, next) {

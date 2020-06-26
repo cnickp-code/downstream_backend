@@ -48,7 +48,7 @@ describe('Auth Endpoints', function () {
             })
 
             it(`responds with 400 'invalid user_name or password' when bad user_name`, () => {
-                const userInvalidUser = { user_name: 'user-not', password: 'password3'}
+                const userInvalidUser = { user_name: 'user-not', password: 'password3' }
                 return supertest(app)
                     .post('/api/auth/login')
                     .send(userInvalidUser)
@@ -56,7 +56,7 @@ describe('Auth Endpoints', function () {
             })
 
             it(`responds with 400 'invalid user_name or password' when bad password`, () => {
-                const invalidPassword = { user_name: testUser.user_name, password: 'incorrect'}
+                const invalidPassword = { user_name: testUser.user_name, password: 'incorrect' }
                 return supertest(app)
                     .post('/api/auth/login')
                     .send(invalidPassword)

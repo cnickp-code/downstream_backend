@@ -234,7 +234,7 @@ function makeScheduleArray() {
 function seedUsers(db, users) {
         const preppedUsers = users.map(user => {
             let { id, ...newUser } = user;
-            newUser.password = bcrypt.hashSync(user.password, 1);
+            newUser.password = bcrypt.hashSync(user.password, 12);
             
             return newUser
     })

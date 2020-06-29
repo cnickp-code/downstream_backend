@@ -15,6 +15,22 @@ const ScheduleService = {
             .where('user_id', id)
             .orderBy('schedule_id')
     },
+    getSearchSchedule(knex, id, search) {
+        return knex
+            .from('downstream_schedule')
+            .join('downstream_events', 'downstream_events.id', 'event_id')
+            .select('*')
+            .select(
+                knex.raw(
+                    '"downstream_schedule"."id" AS "schedule_id"'
+                )
+            )
+            .where('user_id', id)
+            .where({
+                name: search
+            })
+            .orderBy('schedule_id')
+    },
     getUserById(knex, id) {
         return knex
             .from('downstream_users')

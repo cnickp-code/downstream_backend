@@ -5,6 +5,16 @@ const EventsService = {
         return knex
             .select('*')
             .from('downstream_events')
+            .orderBy('id')
+    },
+    getSearchEvents(knex, search) {
+        return knex
+            .select('*')
+            .from('downstream_events')
+            .where({ 
+                name: search
+            })
+            .orderBy('id')
     },
     insertEvent(knex, newEvent) {
         return knex

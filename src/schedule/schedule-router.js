@@ -51,7 +51,6 @@ scheduleRouter
     .route('/:schedule_id')
     .all(requireAuth)
     .all((req, res, next) => {
-        console.log('all')
         ScheduleService.getById(
             req.app.get('db'),
             req.params.schedule_id

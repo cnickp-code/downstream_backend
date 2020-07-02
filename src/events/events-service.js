@@ -3,9 +3,12 @@ const xss = require('xss')
 const EventsService = {
     getAllEvents(knex) {
         return knex
-            .select('*')
+            .select('downstream_events.*')
+            .count('downstream_schedule.id')
             .from('downstream_events')
-            .orderBy('id')
+            .leftJoin('downstream_schedule', 'downstream_events.id', 'event_id')
+            .groupBy('downstream_events.id')
+            .orderBy('downstream_events.id')
     },
     getSearchEvents(knex, search) {
         return knex
@@ -48,7 +51,8 @@ const EventsService = {
             platform: event.platform,
             genre: event.genre,
             start_date: new Date(event.start_date),
-            end_date: new Date(event.end_date)
+            end_date: new Date(event.end_date),
+            event_popularity: event.count,
         }
     }
 }

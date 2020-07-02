@@ -29,7 +29,7 @@ describe('Events Endpoints', () => {
     })
 
     context('With data in the table', () => {
-      const testEvents = helpers.makeEventsArray();
+      let testEvents = helpers.makeEventsArray();
 
       beforeEach('Insert events', () => {
         return db

@@ -53,6 +53,7 @@ const EventsService = {
             start_date: new Date(event.start_date),
             end_date: new Date(event.end_date),
             event_popularity: event.count,
+            artists: event.artists
         }
     }
 }

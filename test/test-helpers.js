@@ -54,6 +54,7 @@ function makeEventsArray() {
             genre: 'house',
             start_date: '2029-01-22T16:28:32.615Z',
             end_date: '2029-01-22T16:28:32.615Z',
+            artists: 'Downlink, Excision'
         },
         {
             id: 2,
@@ -66,6 +67,7 @@ function makeEventsArray() {
             genre: 'other',
             start_date: '2029-01-22T16:28:32.615Z',
             end_date: '2029-01-22T16:28:32.615Z',
+            artists: 'Downlink, Excision'
         },
         {
             id: 3,
@@ -78,6 +80,7 @@ function makeEventsArray() {
             genre: 'dubstep',
             start_date: '2029-01-22T16:28:32.615Z',
             end_date: '2029-01-22T16:28:32.615Z',
+            artists: 'Downlink, Excision'
         },
         {
             id: 4,
@@ -90,6 +93,7 @@ function makeEventsArray() {
             genre: 'multi',
             start_date: '2029-01-22T16:28:32.615Z',
             end_date: '2029-01-22T16:28:32.615Z',
+            artists: 'Downlink, Excision'
         },
     ]
 }
@@ -295,6 +299,7 @@ function makeMaliciousEvent() {
         description: `Bad image <img src="https://url.to.file.which/does-not.exist" onerror="alert(document.cookie);">. But not <strong>all</strong> bad.`,
         platform: 'facebook',
         genre: 'multi',
+        artist: 'Downlink, Excision',
         start_date: '2029-01-22T16:28:32.615Z',
         end_date: '2029-01-22T16:28:32.615Z'
     }

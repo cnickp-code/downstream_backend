@@ -71,7 +71,9 @@ const ScheduleService = {
             platform: schedule.platform,
             genre: schedule.genre,
             start_date: schedule.start_date,
-            end_date: schedule.end_date
+            end_date: schedule.end_date,
+            event_popularity: schedule.count,
+            artists: schedule.artists
         }
     },
     serializeScheduleItem(item) {

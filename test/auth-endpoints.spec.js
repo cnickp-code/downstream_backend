@@ -23,7 +23,7 @@ describe('Auth Endpoints', function () {
     afterEach('clean db', () => helpers.cleanTables(db))
     after('end connection', () => db.destroy())
 
-    describe(`POST /api/auth/login`, () => {
+    describe.only(`POST /api/auth/login`, () => {
         beforeEach('insert users', () =>
             helpers.seedUsers(db, testUsers)
         )

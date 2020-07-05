@@ -236,20 +236,20 @@ function makeScheduleArray() {
 // }
 
 function seedUsers(db, users) {
-        const preppedUsers = users.map(user => {
-            let { id, ...newUser } = user;
-            newUser.password = bcrypt.hashSync(user.password, 12);
-            
-            return newUser
+    const preppedUsers = users.map(user => {
+        let { id, ...newUser } = user;
+        newUser.password = bcrypt.hashSync(user.password, 12);
+
+        return newUser
     })
     return db
         .into('downstream_users')
         .insert(preppedUsers)
-        .then(() => db.raw(`SELECT setval('downstream_users_id_seq', ?)`, [users[users.length - 1].id] ))
+        .then(() => db.raw(`SELECT setval('downstream_users_id_seq', ?)`, [users[users.length - 1].id]))
 }
 
 function cleanTables(db) {
-    return db.transaction(trx => 
+    return db.transaction(trx =>
         trx.raw(
             `
             TRUNCATE downstream_schedule CASCADE;
@@ -257,21 +257,21 @@ function cleanTables(db) {
             TRUNCATE downstream_events CASCADE;
             `
         )
-        .then(() => 
-            Promise.all([
-                trx.raw(`ALTER SEQUENCE downstream_users_id_seq minvalue 0 START WITH 1`),
-                trx.raw(`ALTER SEQUENCE downstream_events_id_seq minvalue 0 START WITH 1`),
-                trx.raw(`ALTER SEQUENCE downstream_schedule_id_seq minvalue 0 START WITH 1`),
-                trx.raw(`SELECT setval('downstream_users_id_seq', 0)`),
-                trx.raw(`SELECT setval('downstream_events_id_seq', 0)`),
-                trx.raw(`SELECT setval('downstream_schedule_id_seq', 0)`),
-            ])
-        )
+            .then(() =>
+                Promise.all([
+                    trx.raw(`ALTER SEQUENCE downstream_users_id_seq minvalue 0 START WITH 1`),
+                    trx.raw(`ALTER SEQUENCE downstream_events_id_seq minvalue 0 START WITH 1`),
+                    trx.raw(`ALTER SEQUENCE downstream_schedule_id_seq minvalue 0 START WITH 1`),
+                    trx.raw(`SELECT setval('downstream_users_id_seq', 0)`),
+                    trx.raw(`SELECT setval('downstream_events_id_seq', 0)`),
+                    trx.raw(`SELECT setval('downstream_schedule_id_seq', 0)`),
+                ])
+            )
     )
 }
 
 function seedSchedule(db, users, events, schedule) {
-    
+
     return db.transaction(async trx => {
         await seedUsers(trx, users)
         await trx.into('downstream_events').insert(events.map(event => {
@@ -318,8 +318,8 @@ function makeMaliciousEvent() {
 
 function makeAuthHeader(user, secret = process.env.JWT_SECRET) {
     const token = jwt.sign({ user_id: user.id }, secret, {
-      subject: user.user_name,
-      algorithm: 'HS256'
+        subject: user.user_name,
+        algorithm: 'HS256'
     })
     return `Bearer ${token}`
 }

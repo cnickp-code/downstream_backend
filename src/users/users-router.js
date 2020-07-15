@@ -1,8 +1,8 @@
-const express = require('express')
-const userRouter = express.Router()
-const UsersService = require('./users-service')
+const express = require('express');
+const userRouter = express.Router();
+const UsersService = require('./users-service');
 
-const bodyParser = express.json()
+const bodyParser = express.json();
 
 userRouter
     .post('/', bodyParser, (req, res, next) => {
@@ -11,20 +11,20 @@ userRouter
             if(!req.body[field]) {
                 return res.status(400).json({
                     error: `Missing '${field}' in request body`
-                })
+                });
             }
         }
 
         const passwordError = UsersService.verifyPassword(password)
 
         if(passwordError) {
-            return res.status(400).json({ error: passwordError })
+            return res.status(400).json({ error: passwordError });
         }
 
-        const emailError = UsersService.verifyEmail(email)
+        const emailError = UsersService.verifyEmail(email);
 
         if(emailError) {
-            return res.status(400).json({ error: emailError })
+            return res.status(400).json({ error: emailError });
         }
 
         UsersService.hasUserWithUserName(
@@ -37,7 +37,7 @@ userRouter
                         .status(400)
                         .json({
                             error: `Username already taken`
-                        })
+                        });
                 }
 
                 return UsersService.hashPassword(password)
@@ -57,13 +57,13 @@ userRouter
                                 res
                                     .status(201)
                                     .location(`/api/users/${user.id}`)
-                                    .json(UsersService.serializeUser(user))
+                                    .json(UsersService.serializeUser(user));
                             })
                     })
             })
-            .catch(next)
+            .catch(next);
 
         
     })
 
-module.exports = userRouter
+module.exports = userRouter;

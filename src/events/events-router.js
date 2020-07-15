@@ -1,7 +1,7 @@
-const express = require('express')
-const EventsService = require('./events-service')
+const express = require('express');
+const EventsService = require('./events-service');
 const eventsRouter = express.Router();
-const { requireAuth } = require('../middleware/jwt-auth')
+const { requireAuth } = require('../middleware/jwt-auth');
 
 
 const bodyParser = express.json();
@@ -16,14 +16,14 @@ eventsRouter
             .catch(next);
     })
     .post(requireAuth, bodyParser, (req, res, next) => {
-        const { name, image_url, info_url, stream_url, description, platform, genre, start_date, end_date, artists } = req.body
-        const newEvent = { name, image_url, info_url, stream_url, description, platform, genre, start_date, end_date, artists }
+        const { name, image_url, info_url, stream_url, description, platform, genre, start_date, end_date, artists } = req.body;
+        const newEvent = { name, image_url, info_url, stream_url, description, platform, genre, start_date, end_date, artists };
 
         for(const [key, value] of Object.entries(newEvent)) {
             if(value == null) {
                 return res.status(404).json({
                     error: { message: `Missing '${key}' in request body`}
-                })
+                });
             }
         }
 
@@ -32,7 +32,7 @@ eventsRouter
                 res
                     .status(201)
                     .location(`/api/events/${event.id}`)
-                    .json(EventsService.serializeEvents(event))
+                    .json(EventsService.serializeEvents(event));
             })
     })
 
@@ -48,26 +48,26 @@ eventsRouter
             if(!event) {
                 return res.status(404).json({
                     error: { message: `Event doesn't exist`}
-                })
+                });
             }
-            res.event = event
-            next()
+            res.event = event;
+            next();
         })
-        .catch(next)
+        .catch(next);
     })
     .get((req, res, next) => {
         res
             .status(200)
-            .json(EventsService.serializeEvents(res.event))
+            .json(EventsService.serializeEvents(res.event));
     })
     .delete((req, res, next) => {
-        const knexInstance = req.app.get('db')
+        const knexInstance = req.app.get('db');
 
         EventsService.deleteEvent(knexInstance, req.params.event_id)
             .then(() => {
-                res.status(204).end()
+                res.status(204).end();
             })
-            .catch(next)
+            .catch(next);
     })
 
 module.exports = eventsRouter;

@@ -1,12 +1,12 @@
-const knex = require('knex')
-const app = require('../src/app')
-const helpers = require('./test-helpers')
-const supertest = require('supertest')
-const jwt = require('jsonwebtoken')
-const { makeEventsArray, makeScheduleArray, makeUsersArray } = require('./test-helpers')
+const knex = require('knex');
+const app = require('../src/app');
+const helpers = require('./test-helpers');
+const supertest = require('supertest');
+const jwt = require('jsonwebtoken');
+const { makeEventsArray, makeScheduleArray, makeUsersArray } = require('./test-helpers');
 
 describe('Auth Endpoints', function () {
-    let db
+    let db;
 
     const testUsers = makeUsersArray();
     const testEvents = makeEventsArray();
@@ -20,9 +20,9 @@ describe('Auth Endpoints', function () {
         app.set('db', db)
     })
 
-    before('clean db', () => helpers.cleanTables(db))
-    afterEach('clean db', () => helpers.cleanTables(db))
-    after('end connection', () => db.destroy())
+    before('clean db', () => helpers.cleanTables(db));
+    afterEach('clean db', () => helpers.cleanTables(db));
+    after('end connection', () => db.destroy());
 
     describe('Protected endpoints', () => {
         beforeEach('insert data into tables', () => {
@@ -32,7 +32,7 @@ describe('Auth Endpoints', function () {
                 testEvents,
                 testSchedule
             )
-        })
+        });
 
         const protectedEndpoints = [
             {
@@ -47,7 +47,7 @@ describe('Auth Endpoints', function () {
                 name: 'GET /api/schedule/:schedule_id',
                 path: '/api/schedule'
             }
-        ]
+        ];
 
         protectedEndpoints.forEach(endpoint => {
             describe(endpoint.name, () => {

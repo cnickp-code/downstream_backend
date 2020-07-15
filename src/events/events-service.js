@@ -1,4 +1,4 @@
-const xss = require('xss')
+const xss = require('xss');
 
 const EventsService = {
     getAllEvents(knex) {
@@ -8,7 +8,7 @@ const EventsService = {
             .from('downstream_events')
             .leftJoin('downstream_schedule', 'downstream_events.id', 'event_id')
             .groupBy('downstream_events.id')
-            .orderBy('downstream_events.id')
+            .orderBy('downstream_events.id');
     },
     getSearchEvents(knex, search) {
         return knex
@@ -17,7 +17,7 @@ const EventsService = {
             .where({ 
                 name: search
             })
-            .orderBy('id')
+            .orderBy('id');
     },
     insertEvent(knex, newEvent) {
         return knex
@@ -26,14 +26,14 @@ const EventsService = {
             .returning('*')
             .then(rows => {
                 return rows[0]
-            })
+            });
     },
     getById(knex, id) {
         return knex
             .from('downstream_events')
             .select('*')
             .where('id', id)
-            .first()
+            .first();
     },
     deleteEvent(knex, id) {
         return knex('downstream_events')
@@ -54,8 +54,8 @@ const EventsService = {
             end_date: new Date(event.end_date),
             event_popularity: event.count,
             artists: event.artists
-        }
+        };
     }
 }
 
-module.exports = EventsService
+module.exports = EventsService;

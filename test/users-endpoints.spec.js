@@ -1,15 +1,15 @@
-const knex = require('knex')
-const app = require('../src/app')
-const helpers = require('./test-helpers')
-const supertest = require('supertest')
-const bcrypt = require('bcryptjs')
-const { expect } = require('chai')
+const knex = require('knex');
+const app = require('../src/app');
+const helpers = require('./test-helpers');
+const supertest = require('supertest');
+const bcrypt = require('bcryptjs');
+const { expect } = require('chai');
 
 describe('Users Endpoints', function () {
-    let db
+    let db;
 
     const testUsers = helpers.makeUsersArray();
-    const testUser = testUsers[0]
+    const testUser = testUsers[0];
 
     before('make knex instance', () => {
         db = knex({
@@ -19,11 +19,11 @@ describe('Users Endpoints', function () {
         app.set('db', db)
     })
 
-    after('disconnect from db', () => db.destroy())
+    after('disconnect from db', () => db.destroy());
 
-    before('cleanup', () => helpers.cleanTables(db))
+    before('cleanup', () => helpers.cleanTables(db));
 
-    afterEach('cleanup', () => helpers.cleanTables(db))
+    afterEach('cleanup', () => helpers.cleanTables(db));
 
     describe(`POST /api/users`, () => {
         context(`User Validation`, () => {
@@ -32,19 +32,19 @@ describe('Users Endpoints', function () {
                     db,
                     testUsers,
                 )
-            )
+            );
 
-            const requiredFields = ['user_name', 'password', 'email']
+            const requiredFields = ['user_name', 'password', 'email'];
 
             requiredFields.forEach(field => {
                 const registerAttemptBody = {
                     user_name: 'test user_name',
                     password: 'test password',
                     email: 'test@test.com'
-                }
+                };
 
                 it(`responds with 400 required error when '${field}' is missing`, () => {
-                    delete registerAttemptBody[field]
+                    delete registerAttemptBody[field];
 
                     return supertest(app)
                         .post('/api/users')
@@ -59,7 +59,7 @@ describe('Users Endpoints', function () {
                     user_name: 'test user_name',
                     password: '123456',
                     email: 'test@test.com'
-                }
+                };
 
                 return supertest(app)
                     .post('/api/users')
@@ -71,7 +71,7 @@ describe('Users Endpoints', function () {
                     user_name: 'test user_name',
                     password: '*'.repeat(73),
                     email: 'test@test.com'
-                }
+                };
 
                 return supertest(app)
                     .post('/api/users')
@@ -83,7 +83,7 @@ describe('Users Endpoints', function () {
                     user_name: 'test user_name',
                     password: '     321',
                     email: 'test@test.com'
-                }
+                };
 
                 return supertest(app)
                     .post('/api/users')
@@ -95,7 +95,7 @@ describe('Users Endpoints', function () {
                     user_name: 'test user_name',
                     password: '321     ',
                     email: 'test@test.com'
-                }
+                };
 
                 return supertest(app)
                     .post('/api/users')
@@ -107,7 +107,7 @@ describe('Users Endpoints', function () {
                     user_name: 'test user_name',
                     password: '11AAaabb',
                     email: 'test@test.com'
-                }
+                };
 
                 return supertest(app)
                     .post('/api/users')
@@ -119,7 +119,7 @@ describe('Users Endpoints', function () {
                     user_name: testUser.user_name,
                     password: '11AAaa!!',
                     email: 'test@test.com'
-                }
+                };
 
                 return supertest(app)
                     .post('/api/users')
@@ -131,7 +131,7 @@ describe('Users Endpoints', function () {
                     user_name: 'test user name',
                     password: '11AAaa!!',
                     email: 'test'
-                }
+                };
 
                 return supertest(app)
                     .post('/api/users')
@@ -146,7 +146,7 @@ describe('Users Endpoints', function () {
                     user_name: 'test user_name',
                     password: '11AAaa!!',
                     email: 'test@test.com'
-                }
+                };
 
                 return supertest(app)
                     .post('/api/users')

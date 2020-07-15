@@ -6,7 +6,7 @@ const { makeEventsArray } = require('./test-helpers');
 const { expect } = require('chai');
 
 describe('Events Endpoints', () => {
-  let db
+  let db;
 
   before('setup db', () => {
     db = knex({
@@ -16,9 +16,9 @@ describe('Events Endpoints', () => {
     app.set('db', db)
   })
 
-  before('clean db', () => helpers.cleanTables(db))
-  afterEach('clean db', () => helpers.cleanTables(db))
-  after('end connection', () => db.destroy())
+  before('clean db', () => helpers.cleanTables(db));
+  afterEach('clean db', () => helpers.cleanTables(db));
+  after('end connection', () => db.destroy());
 
   describe('GET /api/events', () => {
     it('Should return 200 and empty array', () => {
@@ -69,7 +69,7 @@ describe('Events Endpoints', () => {
 
   describe('GET /api/events/:event_id', () => {
     const testUsers = helpers.makeUsersArray();
-    const validUser = testUsers[0]
+    const validUser = testUsers[0];
 
     beforeEach(() => 
       helpers.seedUsers(db, testUsers)
@@ -124,8 +124,8 @@ describe('Events Endpoints', () => {
       })
 
       it('Responds with 404', () => {
-        const eventId = 123456
-        const validUser = testUsers[0]
+        const eventId = 123456;
+        const validUser = testUsers[0];
 
         return supertest(app)
           .delete(`/api/events/${eventId}`)
@@ -150,8 +150,8 @@ describe('Events Endpoints', () => {
 
       it('Responds with 204 and removes event', () => {
         const idToDelete = 2;
-        const validUser = testUsers[0]
-        const expectedEvents = testEvents.filter(event => event.id !== idToDelete)
+        const validUser = testUsers[0];
+        const expectedEvents = testEvents.filter(event => event.id !== idToDelete);
 
         return supertest(app)
           .delete(`/api/events/${idToDelete}`)
@@ -169,7 +169,7 @@ describe('Events Endpoints', () => {
 
   describe('POST /api/events', () => {
     const testUsers = helpers.makeUsersArray();
-    const validUser = testUsers[0]
+    const validUser = testUsers[0];
 
     beforeEach(() => 
       helpers.seedUsers(db, testUsers)
@@ -186,7 +186,7 @@ describe('Events Endpoints', () => {
         genre: 'dubstep',
         start_date: '2029-01-22T16:28:32.615Z',
         end_date: '2029-01-22T16:28:32.615Z'
-      }
+      };
 
       return supertest(app)
         .post('/api/events')

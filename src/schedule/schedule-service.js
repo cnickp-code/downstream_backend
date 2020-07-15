@@ -1,5 +1,4 @@
-const EventsService = require('../events/events-service')
-const xss = require('xss')
+const xss = require('xss');
 
 const ScheduleService = {
     getScheduleByUserId(knex, id) {
@@ -13,7 +12,7 @@ const ScheduleService = {
                 )
             )
             .where('user_id', id)
-            .orderBy('schedule_id')
+            .orderBy('schedule_id');
     },
     getSearchSchedule(knex, id, search) {
         return knex
@@ -29,21 +28,21 @@ const ScheduleService = {
             .where({
                 name: search
             })
-            .orderBy('schedule_id')
+            .orderBy('schedule_id');
     },
     getUserById(knex, id) {
         return knex
             .from('downstream_users')
             .select('*')
             .where('id', id)
-            .first()
+            .first();
     },
     getById(knex, id) {
         return knex
             .from('downstream_schedule')
             .select('*')
             .where('id', id)
-            .first()
+            .first();
     },
     insertSchedule(knex, newSchedule) {
         return knex
@@ -52,12 +51,12 @@ const ScheduleService = {
             .returning('*')
             .then(rows => {
                 return rows[0]
-            })
+            });
     },
     deleteScheduleEvent(knex, id) {
         return knex('downstream_schedule')
             .where({ id })
-            .delete()
+            .delete();
     },
     serializeSchedule(schedule) {
         return {
@@ -74,17 +73,17 @@ const ScheduleService = {
             end_date: schedule.end_date,
             event_popularity: schedule.count,
             artists: schedule.artists
-        }
+        };
     },
     serializeScheduleItem(item) {
         return {
             id: item.id,
             event_id: item.event_id,
             user_id: item.user_id
-        }
+        };
     }
 
 
 }
 
-module.exports = ScheduleService
+module.exports = ScheduleService;

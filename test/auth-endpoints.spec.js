@@ -1,15 +1,15 @@
-const knex = require('knex')
-const app = require('../src/app')
-const helpers = require('./test-helpers')
-const supertest = require('supertest')
-const jwt = require('jsonwebtoken')
-const { makeUsersArray } = require('./test-helpers')
+const knex = require('knex');
+const app = require('../src/app');
+const helpers = require('./test-helpers');
+const supertest = require('supertest');
+const jwt = require('jsonwebtoken');
+const { makeUsersArray } = require('./test-helpers');
 
 describe('Auth Endpoints', function () {
-    let db
+    let db;
 
     const testUsers = makeUsersArray();
-    const testUser = testUsers[0]
+    const testUser = testUsers[0];
 
     before('make knex instance', () => {
         db = knex({
@@ -19,9 +19,9 @@ describe('Auth Endpoints', function () {
         app.set('db', db)
     })
 
-    before('clean db', () => helpers.cleanTables(db))
-    afterEach('clean db', () => helpers.cleanTables(db))
-    after('end connection', () => db.destroy())
+    before('clean db', () => helpers.cleanTables(db));
+    afterEach('clean db', () => helpers.cleanTables(db));
+    after('end connection', () => db.destroy());
 
     describe.only(`POST /api/auth/login`, () => {
         beforeEach('insert users', () =>
@@ -37,18 +37,18 @@ describe('Auth Endpoints', function () {
             }
 
             it(`responds with 400 required error when '${field}' is missing`, () => {
-                delete loginAttemptBody[field]
+                delete loginAttemptBody[field];
 
                 return supertest(app)
                     .post('/api/auth/login')
                     .send(loginAttemptBody)
                     .expect(400, {
                         error: `Missing '${field}' in request body`
-                    })
+                    });
             })
 
             it(`responds with 400 'invalid user_name or password' when bad user_name`, () => {
-                const userInvalidUser = { user_name: 'user-not', password: 'password3' }
+                const userInvalidUser = { user_name: 'user-not', password: 'password3' };
                 return supertest(app)
                     .post('/api/auth/login')
                     .send(userInvalidUser)
@@ -56,7 +56,7 @@ describe('Auth Endpoints', function () {
             })
 
             it(`responds with 400 'invalid user_name or password' when bad password`, () => {
-                const invalidPassword = { user_name: testUser.user_name, password: 'incorrect' }
+                const invalidPassword = { user_name: testUser.user_name, password: 'incorrect' };
                 return supertest(app)
                     .post('/api/auth/login')
                     .send(invalidPassword)

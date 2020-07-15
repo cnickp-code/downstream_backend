@@ -18,9 +18,9 @@ describe('Schedule Endpoints', () => {
         app.set('db', db)
     })
 
-    before('clean db', () => helpers.cleanTables(db))
-    afterEach('clean db', () => helpers.cleanTables(db))
-    after('end connection', () => db.destroy())
+    before('clean db', () => helpers.cleanTables(db));
+    afterEach('clean db', () => helpers.cleanTables(db));
+    after('end connection', () => db.destroy());
 
     describe('GET /api/schedule/', () => {
         context('Given valid user', () => {
@@ -33,21 +33,21 @@ describe('Schedule Endpoints', () => {
                     testEvents,
                     testSchedule
                 )
-            })
+            });
 
             it('responds with 200 and corresponding events', () => {
                 const userId = 4;
-                let tempSchedule = testSchedule.filter(sched => sched.user_id === userId)
-                let expectedResult = []
+                let tempSchedule = testSchedule.filter(sched => sched.user_id === userId);
+                let expectedResult = [];
 
                 tempSchedule.forEach(sched => {
-                    let ev = testEvents.find(event => event.id === sched.event_id)
+                    let ev = testEvents.find(event => event.id === sched.event_id);
 
                     expectedResult.push({
                         ...ev,
                         id: sched.id,
                         event_id: ev.id
-                    })
+                    });
                 })
 
                 return supertest(app)
@@ -63,7 +63,7 @@ describe('Schedule Endpoints', () => {
         context('Should return 200 and given schedule', () => {
             const userId = 4;
             const testSchedule = helpers.makeScheduleArray();
-            const validUser = testUsers[userId - 1]
+            const validUser = testUsers[userId - 1];
     
             beforeEach('Insert test schedule', () => {
                 return helpers.seedSchedule(
@@ -91,7 +91,7 @@ describe('Schedule Endpoints', () => {
             const testUsers = helpers.makeUsersArray();
             const testEvents = helpers.makeEventsArray();
             const testSchedule = helpers.makeScheduleArray();
-            const validUser = testUsers[0]
+            const validUser = testUsers[0];
 
             beforeEach('Insert test events', () => {
                 return helpers.seedSchedule(
@@ -146,7 +146,7 @@ describe('Schedule Endpoints', () => {
                 )
             })
             it('Responds with 404', () => {
-                const scheduleId = 123456
+                const scheduleId = 123456;
                 const validUser = testUsers[0];
                 return supertest(app)
                     .delete(`/api/schedule/${scheduleId}`)
@@ -170,9 +170,9 @@ describe('Schedule Endpoints', () => {
             it('Responds with 204 and removes scheduled event', () => {
                 const idToDelete = 2;
                 const userId = 1;
-                const expectedSchedule = testSchedule.filter(sched => sched.id !== idToDelete).filter(sched => sched.user_id === userId)
+                const expectedSchedule = testSchedule.filter(sched => sched.id !== idToDelete).filter(sched => sched.user_id === userId);
                 const expectedEventObject = expectedSchedule.map(item => {
-                    let newItem = testEvents.find(event => event.id === item.event_id)
+                    let newItem = testEvents.find(event => event.id === item.event_id);
                     const event_id = newItem.id;
                     const newObject = {
                         id: item.id,

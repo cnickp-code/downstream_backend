@@ -240,7 +240,7 @@ function seedUsers(db, users) {
         let { id, ...newUser } = user;
         newUser.password = bcrypt.hashSync(user.password, 12);
 
-        return newUser
+        return newUser;
     })
     return db
         .into('downstream_users')

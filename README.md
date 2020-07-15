@@ -21,9 +21,9 @@ Backend serving DownStream, an event management web app for online music streami
 
 * **Data Params**
 
-   `user_name: string`
-   `password: string`
-   `email: string`
+   `user_name: string` <br />
+   `password: string` <br />
+   `email: string` <br />
    `date_create: date`
 
 * **Success Response:**
@@ -84,23 +84,23 @@ Backend serving DownStream, an event management web app for online music streami
   
 *  **URL Params**
 
-   GET: None
+   GET: None <br />
    POST: None
 
 * **Data Params**
 
-    GET: None
-    POST:
-    `name: string` 
-    `image_url: string`
-    `info_url: string`
-    `stream_url: string`
-    `description: string`
-    `platform : string`
-    `genre: string`
-    `start_date: date`
-    `end_date: date`
-    `artists: string`
+    GET: None <br />
+    POST: <br />
+    `name: string` <br />
+    `image_url: string`<br />
+    `info_url: string` <br />
+    `stream_url: string` <br />
+    `description: string` <br />
+    `platform : string` <br />
+    `genre: string` <br />
+    `start_date: date` <br />
+    `end_date: date` <br />
+    `artists: string` <br />
 
 * **Success Response:**
   * **GET:**
@@ -114,10 +114,10 @@ Backend serving DownStream, an event management web app for online music streami
  
 * **Error Response:**
 
-  * **GET:**
+  * **GET:** <br />
     None
 
-  * **POST:**
+  * **POST:** <br />
     **Code:** 404 <br />
     **Content:** `{ error : "Missing key in request body" }`
 
@@ -155,47 +155,47 @@ Backend serving DownStream, an event management web app for online music streami
 
 **Schedule**
 ----
-  Get events from logged in user's schedule
-  Post events to logged in user's schedule 
+  Get events from logged in user's schedule <br />
+  Post events to logged in user's schedule  <br />
 
 * **URL**
 
-  /api/schedule
+  /api/schedule 
 
 * **Method(s):**
 
-  `GET`
+  `GET` <br />
   `POST`
   
 *  **URL Params**
 
-   GET: None
+   GET: None <br />
    POST: None
 
 * **Data Params**
 
-    GET: None
-    POST:
-    `id: integer`
-    `event_id: integer`
-    `name: string`
-    `image_url: string`
-    `stream_url: string`
-    `info_url: string`
-    `description: string`
-    `platform: string`
-    `genre: string`
-    `start_date: date`
-    `end_date: date`
-    `event_popularity: integer`
-    `artists: string`
+    GET: None <br />
+    POST: <br />
+    `id: integer` <br />
+    `event_id: integer` <br />
+    `name: string` <br />
+    `image_url: string` <br />
+    `stream_url: string` <br />
+    `info_url: string` <br />
+    `description: string` <br />
+    `platform: string` <br /> 
+    `genre: string`<br />
+    `start_date: date`<br />
+    `end_date: date`<br />
+    `event_popularity: integer`<br />
+    `artists: string`<br />
 
 * **Success Response:**
-  * **GET:**
+  * **GET:**<br />
     **Code:** 200 <br />
     **Content:** `{"id": 4, "event_id": 1, "name": "Lost Lands", "image_url": "https://www.lostlandsfestival.com/wp-content/uploads/2020/05/preview-lightbox-TeaserGraphic_1920x1080_2-1200x675.jpg", "stream_url": "https://www.facebook.com", "info_url": "https://www.google.com", "description": "test description 1", "platform": "twitch", "genre": "dubstep", "start_date": "2029-01-22T16:28:32.615Z", "end_date": "2029-01-22T16:28:32.615Z", "artists": "Downlink, Excision" }`
 
-  * **POST:**
+  * **POST:**<br />
     **Code:** 201 <br />
     **Content:** `{"id": 4, "event_id": 1, "name": "Lost Lands", "image_url": "https://www.lostlandsfestival.com/wp-content/uploads/2020/05/preview-lightbox-TeaserGraphic_1920x1080_2-1200x675.jpg", "stream_url": "https://www.facebook.com", "info_url": "https://www.google.com", "description": "test description 1", "platform": "twitch", "genre": "dubstep", "start_date": "2029-01-22T16:28:32.615Z", "end_date": "2029-01-22T16:28:32.615Z", "artists": "Downlink, Excision" }`
 
@@ -207,7 +207,7 @@ Backend serving DownStream, an event management web app for online music streami
 
 **Individual Schedule Event**
 ----
-  Get individual schedule event from database
+  Get individual schedule event from database<br />
   Delete individual event from schedule
 
 * **URL**
@@ -216,7 +216,7 @@ Backend serving DownStream, an event management web app for online music streami
 
 * **Method(s):**
 
-  `GET`
+  `GET`<br />
   `DELETE`
   
 *  **URL Params**
@@ -230,7 +230,7 @@ Backend serving DownStream, an event management web app for online music streami
 
 * **Success Response:**
 
-  * **GET**
+  * **GET**<br />
     **Code:** 200 <br />
     **Content:** `{"id": 4, "event_id": 1, "name": "Lost Lands", "image_url": "https://www.lostlandsfestival.com/wp-content/uploads/2020/05/preview-lightbox-TeaserGraphic_1920x1080_2-1200x675.jpg", "stream_url": "https://www.facebook.com", "info_url": "https://www.google.com", "description": "test description 1", "platform": "twitch", "genre": "dubstep", "start_date": "2029-01-22T16:28:32.615Z", "end_date": "2029-01-22T16:28:32.615Z", "artists": "Downlink, Excision" }`
 

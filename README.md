@@ -105,11 +105,43 @@ Backend serving DownStream, an event management web app for online music streami
 * **Success Response:**
   * **GET:**
     **Code:** 200 <br />
-    **Content:** `{ "id": 1, "name": "Lost Lands", "image_url": "https://www.lostlandsfestival.com/wp-content/uploads/2020/05/preview-lightbox-TeaserGraphic_1920x1080_2-1200x675.jpg", "info_url": "https://www.google.com", "stream_url": "https://www.facebook.com", "description": "test description 1", "platform": "twitch", "genre": "dubstep", "start_date": "2029-01-22T16:28:32.615Z", "end_date": "2029-01-22T16:28:32.615Z", "event_popularity": "6", "artists": "Downlink, Excision" }`
+    **Content:** <br />
+    ```    
+    {
+        "id": 1,
+        "name": "Hospitality Beach Party",
+        "image_url": "https://showfomo.com/img/flyers/hospitality-beach-party-stream-2020-20200702215542.jpg",
+        "info_url": "https://www.facebook.com/hospitalitydnb",
+        "stream_url": "https://www.twitch.tv/hospitalrecordsofficial",
+        "description": "A DNB Staycation",
+        "platform": "twitch",
+        "genre": "dnb",
+        "start_date": "2020-07-10T19:00:00.000Z",
+        "end_date": "2020-07-12T05:00:00.000Z",
+        "event_popularity": "3",
+        "artists": "Urbandawn, Camo & Krooked, Netsky, Black Sun Empire, Charlie Tee, S.P.Y, Djinn, Euphonique, Bladerunner, Fabio, Kyrist, Kasra, Unglued, Degs, Lens, Mizeyesis, Stay-C, GLXY, Riya, Inja's Sunday Service, NU:TONE, Fred V, London Elektricity, Tim Reaper"
+    },
+    ```
 
   * **POST:**
     **Code:** 201 <br />
-    **Content:** `{ "id": 1, "name": "Lost Lands", "image_url": "https://www.lostlandsfestival.com/wp-content/uploads/2020/05/preview-lightbox-TeaserGraphic_1920x1080_2-1200x675.jpg", "info_url": "https://www.google.com", "stream_url": "https://www.facebook.com", "description": "test description 1", "platform": "twitch", "genre": "dubstep", "start_date": "2029-01-22T16:28:32.615Z", "end_date": "2029-01-22T16:28:32.615Z", "event_popularity": "6", "artists": "Downlink, Excision" }`
+    **Content:** <br />
+    ```    
+    {
+        "id": 1,
+        "name": "Hospitality Beach Party",
+        "image_url": "https://showfomo.com/img/flyers/hospitality-beach-party-stream-2020-20200702215542.jpg",
+        "info_url": "https://www.facebook.com/hospitalitydnb",
+        "stream_url": "https://www.twitch.tv/hospitalrecordsofficial",
+        "description": "A DNB Staycation",
+        "platform": "twitch",
+        "genre": "dnb",
+        "start_date": "2020-07-10T19:00:00.000Z",
+        "end_date": "2020-07-12T05:00:00.000Z",
+        "event_popularity": "3",
+        "artists": "Urbandawn, Camo & Krooked, Netsky, Black Sun Empire, Charlie Tee, S.P.Y, Djinn, Euphonique, Bladerunner, Fabio, Kyrist, Kasra, Unglued, Degs, Lens, Mizeyesis, Stay-C, GLXY, Riya, Inja's Sunday Service, NU:TONE, Fred V, London Elektricity, Tim Reaper"
+    },
+    ```
 
  
 * **Error Response:**
@@ -145,7 +177,23 @@ Backend serving DownStream, an event management web app for online music streami
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `{ "id": 1, "name": "Lost Lands", "image_url": "https://www.lostlandsfestival.com/wp-content/uploads/2020/05/preview-lightbox-TeaserGraphic_1920x1080_2-1200x675.jpg", "info_url": "https://www.google.com", "stream_url": "https://www.facebook.com", "description": "test description 1", "platform": "twitch", "genre": "dubstep", "start_date": "2029-01-22T16:28:32.615Z", "end_date": "2029-01-22T16:28:32.615Z", "event_popularity": "6", "artists": "Downlink, Excision" }`
+    **Content:** <br />
+    ```    
+    {
+        "id": 1,
+        "name": "Hospitality Beach Party",
+        "image_url": "https://showfomo.com/img/flyers/hospitality-beach-party-stream-2020-20200702215542.jpg",
+        "info_url": "https://www.facebook.com/hospitalitydnb",
+        "stream_url": "https://www.twitch.tv/hospitalrecordsofficial",
+        "description": "A DNB Staycation",
+        "platform": "twitch",
+        "genre": "dnb",
+        "start_date": "2020-07-10T19:00:00.000Z",
+        "end_date": "2020-07-12T05:00:00.000Z",
+        "event_popularity": "3",
+        "artists": "Urbandawn, Camo & Krooked, Netsky, Black Sun Empire, Charlie Tee, S.P.Y, Djinn, Euphonique, Bladerunner, Fabio, Kyrist, Kasra, Unglued, Degs, Lens, Mizeyesis, Stay-C, GLXY, Riya, Inja's Sunday Service, NU:TONE, Fred V, London Elektricity, Tim Reaper"
+    },
+    ```
 
  
 * **Error Response:**
@@ -193,11 +241,43 @@ Backend serving DownStream, an event management web app for online music streami
 * **Success Response:**
   * **GET:**<br />
     **Code:** 200 <br />
-    **Content:** `{"id": 4, "event_id": 1, "name": "Lost Lands", "image_url": "https://www.lostlandsfestival.com/wp-content/uploads/2020/05/preview-lightbox-TeaserGraphic_1920x1080_2-1200x675.jpg", "stream_url": "https://www.facebook.com", "info_url": "https://www.google.com", "description": "test description 1", "platform": "twitch", "genre": "dubstep", "start_date": "2029-01-22T16:28:32.615Z", "end_date": "2029-01-22T16:28:32.615Z", "artists": "Downlink, Excision" }`
+    **Content:**  <br /> 
+    ```  
+    {
+        "id": 4,
+        "event_id": 1,
+        "name": "Lost Lands",
+        "image_url": "https://www.lostlandsfestival.com/wp-content/uploads/2020/05/preview-lightbox-TeaserGraphic_1920x1080_2-1200x675.jpg",
+        "stream_url": "https://www.facebook.com",
+        "info_url": "https://www.google.com",
+        "description": "test description 1",
+        "platform": "twitch",
+        "genre": "dubstep",
+        "start_date": "2029-01-22T16:28:32.615Z",
+        "end_date": "2029-01-22T16:28:32.615Z",
+        "artists": "Downlink, Excision"
+    },
+    ```
 
   * **POST:**<br />
     **Code:** 201 <br />
-    **Content:** `{"id": 4, "event_id": 1, "name": "Lost Lands", "image_url": "https://www.lostlandsfestival.com/wp-content/uploads/2020/05/preview-lightbox-TeaserGraphic_1920x1080_2-1200x675.jpg", "stream_url": "https://www.facebook.com", "info_url": "https://www.google.com", "description": "test description 1", "platform": "twitch", "genre": "dubstep", "start_date": "2029-01-22T16:28:32.615Z", "end_date": "2029-01-22T16:28:32.615Z", "artists": "Downlink, Excision" }`
+    **Content:** <br />
+    ```    
+    {
+        "id": 4,
+        "event_id": 1,
+        "name": "Lost Lands",
+        "image_url": "https://www.lostlandsfestival.com/wp-content/uploads/2020/05/preview-lightbox-TeaserGraphic_1920x1080_2-1200x675.jpg",
+        "stream_url": "https://www.facebook.com",
+        "info_url": "https://www.google.com",
+        "description": "test description 1",
+        "platform": "twitch",
+        "genre": "dubstep",
+        "start_date": "2029-01-22T16:28:32.615Z",
+        "end_date": "2029-01-22T16:28:32.615Z",
+        "artists": "Downlink, Excision"
+    },
+    ```
 
  
 * **Error Response:**
@@ -232,7 +312,23 @@ Backend serving DownStream, an event management web app for online music streami
 
   * **GET**<br />
     **Code:** 200 <br />
-    **Content:** `{"id": 4, "event_id": 1, "name": "Lost Lands", "image_url": "https://www.lostlandsfestival.com/wp-content/uploads/2020/05/preview-lightbox-TeaserGraphic_1920x1080_2-1200x675.jpg", "stream_url": "https://www.facebook.com", "info_url": "https://www.google.com", "description": "test description 1", "platform": "twitch", "genre": "dubstep", "start_date": "2029-01-22T16:28:32.615Z", "end_date": "2029-01-22T16:28:32.615Z", "artists": "Downlink, Excision" }`
+    **Content:** <br />
+    ```  
+    {
+        "id": 4,
+        "event_id": 1,
+        "name": "Lost Lands",
+        "image_url": "https://www.lostlandsfestival.com/wp-content/uploads/2020/05/preview-lightbox-TeaserGraphic_1920x1080_2-1200x675.jpg",
+        "stream_url": "https://www.facebook.com",
+        "info_url": "https://www.google.com",
+        "description": "test description 1",
+        "platform": "twitch",
+        "genre": "dubstep",
+        "start_date": "2029-01-22T16:28:32.615Z",
+        "end_date": "2029-01-22T16:28:32.615Z",
+        "artists": "Downlink, Excision"
+    },
+    ```
 
   * **DELETE**
     **Code:** 204 <br />

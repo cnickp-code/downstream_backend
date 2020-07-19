@@ -20,9 +20,11 @@ My goal with this project is to contribute to the culture and the industry that 
 ![part-1r](https://user-images.githubusercontent.com/61900464/87834977-b0545380-c840-11ea-9d8b-334b80ebab68.jpg)
 ![part-0_2r](https://user-images.githubusercontent.com/61900464/87835274-894a5180-c841-11ea-9186-7290e904aa84.jpg)
 
-## Tech/framework used
+## Tech used
 
 React, NodeJS, PostgreSQL
+
+
 ----
 
 # Backend Endpoints
